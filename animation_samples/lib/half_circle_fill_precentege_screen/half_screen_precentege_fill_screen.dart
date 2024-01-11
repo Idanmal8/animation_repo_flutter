@@ -63,7 +63,9 @@ class _PrecentegeFillCircleState extends State<PrecentegeFillCircle>
             Positioned(
               top: 30,
               child: CustomPaint(
-                painter: ArcPaint(progress: animation.value),
+                painter: ArcPaint(
+                    progressCold: animation.value,
+                    progressHot: animation.value * 0.3),
                 size: const Size(290, 290), // Adjusted to fit as a half-circle
               ),
             ),
@@ -75,9 +77,10 @@ class _PrecentegeFillCircleState extends State<PrecentegeFillCircle>
 }
 
 class ArcPaint extends CustomPainter {
-  final double progress;
+  final double progressCold;
+  final double progressHot;
 
-  ArcPaint({this.progress = 0.0});
+  ArcPaint({this.progressCold = 0.0, this.progressHot = 0.0});
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -88,8 +91,14 @@ class ArcPaint extends CustomPainter {
       ..color = Colors.black
       ..style = PaintingStyle.fill;
 
-    final paint = Paint()
+    final coldPaint = Paint()
       ..color = const Color.fromARGB(255, 215, 103, 255)
+      ..strokeWidth = 30
+      ..strokeCap = StrokeCap.round
+      ..style = PaintingStyle.stroke;
+
+    final hotPaint = Paint()
+      ..color = const Color.fromARGB(255, 255, 117, 117)
       ..strokeWidth = 30
       ..strokeCap = StrokeCap.round
       ..style = PaintingStyle.stroke;
@@ -113,24 +122,50 @@ class ArcPaint extends CustomPainter {
     canvas.drawArc(
       Rect.fromCircle(center: center, radius: radius),
       math.pi,
-      math.pi * progress,
+      math.pi * progressCold,
       false,
-      paint,
+      coldPaint,
+    );
+
+    canvas.drawArc(
+      Rect.fromCircle(center: center, radius: radius),
+      math.pi,
+      math.pi * progressHot,
+      false,
+      hotPaint,
     );
 
     // Calculate the position of the circle along the arc
-    final angle = math.pi + (math.pi * progress);
+    final angle = math.pi + (math.pi * progressCold);
     final circlePosition = Offset(
       center.dx + radius * math.cos(angle),
       center.dy + radius * math.sin(angle),
     );
 
+    // Calculate the position of the circle along the arc
+    final angleHot = math.pi + (math.pi * progressHot);
+    final circleHotPosition = Offset(
+      center.dx + radius * math.cos(angleHot),
+      center.dy + radius * math.sin(angleHot),
+    );
+
     // Draw the black circle at the calculated position
     canvas.drawCircle(circlePosition, 18, circlePinPaint);
+    canvas.drawCircle(circleHotPosition, 18, circlePinPaint);
 
     // Draw an icon in the center of the circle
     final textSpan = TextSpan(
       text: String.fromCharCode(Icons.ac_unit_outlined.codePoint),
+      style: TextStyle(
+        fontSize: 30,
+        fontFamily: Icons.payment.fontFamily,
+        color: Colors.white,
+      ),
+    );
+
+    // Draw an icon in the center of the circle
+    final textSpanHot = TextSpan(
+      text: String.fromCharCode(Icons.hot_tub.codePoint),
       style: TextStyle(
         fontSize: 30,
         fontFamily: Icons.payment.fontFamily,
@@ -143,13 +178,26 @@ class ArcPaint extends CustomPainter {
       textDirection: TextDirection.ltr,
     );
 
+    final textPainterHot = TextPainter(
+      text: textSpanHot,
+      textDirection: TextDirection.ltr,
+    );
+
     textPainter.layout();
     final offset = Offset(
       circlePosition.dx - (textPainter.width / 2),
       circlePosition.dy - (textPainter.height / 2),
     );
 
-    textPainter.paint(canvas, offset); // Adjust the radius as needed
+    textPainter.paint(canvas, offset);
+    
+    textPainterHot.layout();
+    final offsetHot = Offset(
+      circleHotPosition.dx - (textPainterHot.width / 2),
+      circleHotPosition.dy - (textPainterHot.height / 2),
+    );
+
+    textPainterHot.paint(canvas, offsetHot); // Adjust the radius as needed
   }
 
   @override
