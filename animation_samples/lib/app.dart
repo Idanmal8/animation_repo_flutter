@@ -36,13 +36,20 @@ class MyApp extends StatelessWidget {
                             .navigateToHalfCircleFillPrecentege(context),
                       ),
                     ),
-                    Card(
-                      child: ListTile(
-                        title: const Text('Scale Square Animation'),
-                        onTap: () =>
-                            controller.navigateToScaleSquareAnimation(context),
+                      Card(
+                        child: ListTile(
+                          title: const Text('Scale Square Animation'),
+                          onTap: () =>
+                              controller.navigateToScaleSquareAnimation(context),
+                        ),
                       ),
-                    )
+                      Card(
+                        child: ListTile(
+                          title: const Text('Slide cards animation'),
+                          onTap: () =>
+                              controller.navigateToSlideAnywhereCards(context),
+                        ),
+                      ),
                   ],
                 ),
               );
