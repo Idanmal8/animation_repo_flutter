@@ -13,12 +13,12 @@ class MyApp extends StatelessWidget {
         return MaterialApp(
           title: 'Animation Samples',
           theme: ThemeData(
-                useMaterial3: true,
-                brightness: Brightness.light,
-                cardTheme: const CardTheme(
-                  margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                ),
-              ),
+            useMaterial3: true,
+            brightness: Brightness.light,
+            cardTheme: const CardTheme(
+              margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            ),
+          ),
           home: Scaffold(
             appBar: AppBar(
               title: const Text('Animation Samples'),
@@ -36,20 +36,28 @@ class MyApp extends StatelessWidget {
                             .navigateToHalfCircleFillPrecentege(context),
                       ),
                     ),
-                      Card(
-                        child: ListTile(
-                          title: const Text('Scale Square Animation'),
-                          onTap: () =>
-                              controller.navigateToScaleSquareAnimation(context),
-                        ),
+                    Card(
+                      child: ListTile(
+                        title: const Text('Scale Square Animation'),
+                        onTap: () =>
+                            controller.navigateToScaleSquareAnimation(context),
                       ),
-                      Card(
-                        child: ListTile(
-                          title: const Text('Slide cards animation'),
-                          onTap: () =>
-                              controller.navigateToSlideAnywhereCards(context),
-                        ),
+                    ),
+                    Card(
+                      child: ListTile(
+                        title: const Text('Slide cards animation'),
+                        onTap: () =>
+                            controller.navigateToSlideAnywhereCards(context),
                       ),
+                    ),
+                    Card(
+                      child: ListTile(
+                        title: const Text('various designs with enum'),
+                        onTap: () => {
+                          controller.navigateEnumDesignsScreen(context),
+                        },
+                      ),
+                    )
                   ],
                 ),
               );
