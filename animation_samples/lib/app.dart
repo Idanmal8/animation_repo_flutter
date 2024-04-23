@@ -57,6 +57,14 @@ class MyApp extends StatelessWidget {
                           controller.navigateEnumDesignsScreen(context),
                         },
                       ),
+                    ),
+                    Card(
+                      child: ListTile(
+                        title: const Text('date time table'),
+                        onTap: () => {
+                          controller.navigateDateTimeTableScreen(context),
+                        },
+                      ),
                     )
                   ],
                 ),
