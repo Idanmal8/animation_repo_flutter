@@ -65,7 +65,15 @@ class MyApp extends StatelessWidget {
                           controller.navigateDateTimeTableScreen(context),
                         },
                       ),
-                    )
+                    ),
+                    Card(
+                      child: ListTile(
+                        title: const Text('Pooping cards'),
+                        onTap: () => {
+                          controller.navigateToPoopingCardsScreen(context),
+                        },
+                      ),
+                    ),
                   ],
                 ),
               );
