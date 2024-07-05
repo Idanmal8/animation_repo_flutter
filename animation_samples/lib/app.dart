@@ -74,6 +74,14 @@ class MyApp extends StatelessWidget {
                         },
                       ),
                     ),
+                    Card(
+                      child: ListTile(
+                        title: const Text('Rotating Time'),
+                        onTap: () => {
+                          controller.navigateToRotatingTimeScreen(context),
+                        },
+                      ),
+                    )
                   ],
                 ),
               );
