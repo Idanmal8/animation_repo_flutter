@@ -81,7 +81,15 @@ class MyApp extends StatelessWidget {
                           controller.navigateToRotatingTimeScreen(context),
                         },
                       ),
-                    )
+                    ),
+                    Card(
+                      child: ListTile(
+                        title: const Text('Select users stack'),
+                        onTap: () => {
+                          controller.navigateToSelectStackScreen(context),
+                        },
+                      ),
+                    ),
                   ],
                 ),
               );
