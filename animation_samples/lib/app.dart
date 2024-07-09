@@ -90,6 +90,14 @@ class MyApp extends StatelessWidget {
                         },
                       ),
                     ),
+                    Card(
+                      child: ListTile(
+                        title: const Text('Select card'),
+                        onTap: () => {
+                          controller.navigateToSelectCards(context),
+                        },
+                      ),
+                    ),
                   ],
                 ),
               );
