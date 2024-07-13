@@ -1,13 +1,13 @@
-import 'package:animation_samples/card_selection/card_selection.dart';
-import 'package:animation_samples/date_time_addition_table/date_time_addition_table.dart';
-import 'package:animation_samples/enum_designs/enum_design.dart';
 import 'package:animation_samples/half_circle_fill_precentege_screen/half_screen_precentege_fill_screen.dart';
-import 'package:animation_samples/pooping_cards_screen/pooping_cards_screen.dart';
-import 'package:animation_samples/rotating_time/rotating_time.dart';
 import 'package:animation_samples/scale_square_animation/scale_square_animation_screen.dart';
+import 'package:animation_samples/date_time_addition_table/date_time_addition_table.dart';
+import 'package:animation_samples/pooping_cards_screen/pooping_cards_screen.dart';
 import 'package:animation_samples/select_users_stack/select_stack_user_list.dart';
-import 'package:animation_samples/select_users_stack/select_users_stack.dart';
 import 'package:animation_samples/sliding_anywhere_pattern/sliding_squares.dart';
+import 'package:animation_samples/card_selection/card_selection.dart';
+import 'package:animation_samples/rotating_time/rotating_time.dart';
+import 'package:animation_samples/avatar_stack/avatar_stack.dart';
+import 'package:animation_samples/enum_designs/enum_design.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreenController extends ChangeNotifier {
@@ -63,6 +63,12 @@ class HomeScreenController extends ChangeNotifier {
     await Navigator.of(context).push(
       MaterialPageRoute(
           builder: (context) => const CardSelection()),
+    );
+  }
+  Future<void> navigateToAvatarStack(BuildContext context) async {
+    await Navigator.of(context).push(
+      MaterialPageRoute(
+          builder: (context) => const AvatarStack()),
     );
   }
 }

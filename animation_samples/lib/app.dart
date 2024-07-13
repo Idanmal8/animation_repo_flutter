@@ -98,6 +98,14 @@ class MyApp extends StatelessWidget {
                         },
                       ),
                     ),
+                    Card(
+                      child: ListTile(
+                        title: const Text('Avatar stack'),
+                        onTap: () => {
+                          controller.navigateToAvatarStack(context),
+                        },
+                      ),
+                    ),
                   ],
                 ),
               );

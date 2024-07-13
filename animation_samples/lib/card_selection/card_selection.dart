@@ -1,19 +1,21 @@
-import 'package:animation_samples/card_selection/widgets/wave_paintet.dart';
 import 'package:flutter/material.dart';
+import 'package:shimmer/shimmer.dart';
 
 class CardSelection extends StatefulWidget {
   const CardSelection({super.key});
 
   @override
-  _CardSelectionState createState() => _CardSelectionState();
+  CardSelectionState createState() => CardSelectionState();
 }
 
-class _CardSelectionState extends State<CardSelection>
+class CardSelectionState extends State<CardSelection>
     with TickerProviderStateMixin {
   late AnimationController _scaleController;
   late Animation<double> _scaleAnimation;
   late AnimationController _waveController;
   late Animation<double> _waveAnimation;
+
+  bool _isShimmering = false;
 
   @override
   void initState() {
@@ -43,7 +45,7 @@ class _CardSelectionState extends State<CardSelection>
     ).animate(_scaleController);
 
     _waveController = AnimationController(
-      duration: const Duration(milliseconds: 800),
+      duration: const Duration(milliseconds: 300),
       vsync: this,
     );
     _waveAnimation = Tween(begin: 0.0, end: 1.0).animate(CurvedAnimation(
@@ -55,6 +57,14 @@ class _CardSelectionState extends State<CardSelection>
   void _bounce() {
     _scaleController.forward(from: 0);
     _waveController.forward(from: 0);
+    setState(() {
+      _isShimmering = true;
+    });
+    Future.delayed(const Duration(milliseconds: 900), () {
+      setState(() {
+        _isShimmering = false;
+      });
+    });
   }
 
   @override
@@ -82,7 +92,7 @@ class _CardSelectionState extends State<CardSelection>
                     borderRadius: BorderRadius.circular(10),
                   ),
                   alignment: Alignment.center,
-                  width: 370,
+                  width: 400,
                   height: 310,
                   child: Card(
                     shape: RoundedRectangleBorder(
@@ -99,9 +109,27 @@ class _CardSelectionState extends State<CardSelection>
                             ),
                             child: Container(
                               color: const Color.fromARGB(255, 239, 239, 239),
-                              child: Image.asset(
-                                'assets/beer.png',
-                                fit: BoxFit.cover,
+                              child: Stack(
+                                children: [
+                                  SizedBox(
+                                    width: double.infinity,
+                                    child: Image.asset(
+                                      'assets/beer.png',
+                                      fit: BoxFit.fitWidth,
+                                    ),
+                                  ),
+                                  if (_isShimmering)
+                                    Shimmer.fromColors(
+                                      period: const Duration(milliseconds: 800), // Faster shimmer duration
+                                      baseColor: Colors.white.withOpacity(0), // More opaque base color
+                                      highlightColor: Colors.white.withOpacity(0.4), // More opaque highlight color
+                                      child: Container(
+                                        color: Colors.white,
+                                        width: double.infinity,
+                                        height: double.infinity,
+                                      ),
+                                    ),
+                                ],
                               ),
                             ),
                           ),
